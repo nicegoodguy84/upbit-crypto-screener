@@ -1,0 +1,6 @@
+pandas
+pyupbit
+requests
+tqdm
+matplotlib
+numpy
