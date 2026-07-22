@@ -2,14 +2,13 @@ name: Daily Crypto Screener
 
 on:
   schedule:
-    # 매일 한국 시간 오전 09:30 (UTC 00:30) 자동 실행
-    - cron: '30 0 * * *'
+    # 매일 한국 시간 오전 10시 20분 (UTC 기준 1시 20분) 자동 실행
+    - cron: '20 1 * * *'
   workflow_dispatch: # 수동 실행 버튼 활성화
 
 jobs:
   run-screener:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write # 파일 자동 커밋/저장 권한 부여
 
@@ -42,8 +41,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html *.csv *.html || true
-          
-          # KST 기준 날짜/시간으로 커밋 메시지 생성
-          KST_DATE=$(TZ=Asia/Seoul date +'%Y-%m-%d %H:%M')
-          git commit -m "Auto: Update daily crypto screening report [$KST_DATE KST]" || exit 0
+          git commit -m "Auto: Update daily crypto screening report [$(date +'%Y-%m-%d')]" || exit 0
           git push
